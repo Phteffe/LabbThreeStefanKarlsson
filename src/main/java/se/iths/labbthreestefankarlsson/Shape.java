@@ -11,12 +11,13 @@ public abstract class Shape {
     private Color color;
     private final DoubleProperty size = new SimpleDoubleProperty();
 
-    public Shape(double x, double y, Integer size) {
+    public Shape(double x, double y, Integer size, Color color) {
         setxPos(x);
         setyPos(y);
         setSize(size);
     }
-    public Shape (ShapeType shape) {
+
+    public Shape(ShapeType shape) {
 
     }
 
@@ -66,10 +67,10 @@ public abstract class Shape {
 
     public abstract void draw(GraphicsContext context);
 
-    public static Shape createShape(ShapeType shapeType, double x, double y, Integer size) {
+    public static Shape createShape(ShapeType shapeType, double x, double y, Integer size, Color color) {
         return switch (shapeType) {
-            case CIRCLE -> new Circle(x, y, size);
-            case RECTANGLE -> new Rectangle(x,y,size);
+            case CIRCLE -> new Circle(x, y, size, color);
+            case RECTANGLE -> new Rectangle(x, y, size, color);
         };
     }
 }

@@ -13,18 +13,19 @@ public class Model {
     ObjectProperty<ShapeType> currentShapeType = new SimpleObjectProperty<>(ShapeType.CIRCLE);
     ObservableList<ObservableShape> shapes;
     private final ObjectProperty<Integer> size;
-
+    private final ObjectProperty<Color> color;
 
     public Model() {
         this.shapes = FXCollections.observableArrayList(
                 shape -> new Observable[]{
                         shape.xPosProperty(),
                         shape.yPosProperty(),
-                        shape.sizeProperty()
+                        shape.sizeProperty(),
+                        shape.colorProperty()
                 }
         );
         this.size = new SimpleObjectProperty<>(10);
-
+        this.color = new SimpleObjectProperty<>(Color.BLACK);
     }
 
     public ShapeType getCurrentShapeType() {
@@ -50,7 +51,12 @@ public class Model {
     public Integer getSize(){
         return size.get();
     }
-
+    public ObjectProperty<Color> colorProperty() {
+        return color;
+    }
+    public Color getColor() {
+        return color.get();
+    }
 
 }
 
@@ -60,7 +66,7 @@ class ObservableShape extends Shape {
 
 
     public ObservableShape(Shape shape) {
-        super(shape.getxPos(), shape.getyPos(), (int) shape.getSize());
+        super(shape.getxPos(), shape.getyPos(), (int) shape.getSize(),shape.getColor());
         this.shape = shape;
         color.set(shape.getColor());
     }

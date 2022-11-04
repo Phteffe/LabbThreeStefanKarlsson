@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.input.*;
@@ -18,6 +19,7 @@ public class LabbThreeController {
     public ChoiceBox<ShapeType> choiceBox;
     public Spinner<Integer> spinner;
     public GraphicsContext context;
+    public ColorPicker colorPicker;
 
     Model model = new Model();
     ObservableList<ShapeType> shapeTypesList = FXCollections.observableArrayList(ShapeType.values());
@@ -26,9 +28,12 @@ public class LabbThreeController {
         choiceBox.setItems(shapeTypesList);
         choiceBox.valueProperty().bindBidirectional(model.currentShapeTypeProperty());
         model.getShapes().addListener(this::listChanged);
+
         SpinnerValueFactory<Integer> spinnerVal = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,100);
         spinner.setValueFactory(spinnerVal);
         spinnerVal.valueProperty().bindBidirectional(model.sizeProperty());
+        colorPicker.valueProperty().bindBidirectional(model.colorProperty());
+
     }
 
     private void draw() {
@@ -63,7 +68,7 @@ public class LabbThreeController {
     }
 
     public void canvasClicked(MouseEvent mouseEvent) {
-        Shape shape = Shape.createShape(model.getCurrentShapeType(), mouseEvent.getX(), mouseEvent.getY(), model.getSize());
+        Shape shape = Shape.createShape(model.getCurrentShapeType(), mouseEvent.getX(), mouseEvent.getY(), model.getSize(), model.getColor());
         model.addShape(shape);
         var context = canvas.getGraphicsContext2D();
         for (Shape s : model.getShapes()) {
