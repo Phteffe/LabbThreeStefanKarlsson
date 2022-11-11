@@ -11,7 +11,7 @@ public class LabbThreeApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(LabbThreeApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
-        stage.setTitle("JavaFX Chat");
+        stage.setTitle("LabbThree");
         stage.setScene(scene);
         LabbThreeController controller = fxmlLoader.getController();
         controller.init(stage);
